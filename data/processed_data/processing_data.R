@@ -1,7 +1,9 @@
+library(tidyverse)
+
 # file to process data for the models
 data <- readRDS('merged_cases.RDS')
 
-set.seed(1)
+set.seed(2)
 
 #remove two outliers
 data <- filter(data, CallLength < 600)
@@ -13,7 +15,9 @@ data$log_CallLength = log(1 + data$CallLength)
 data$TimeStart <- sub(".*? ", "", data$TimeStart)
 
 #call length
-data$CallLength <- as.numeric(sub(":.+", "", data$TimeStart))
+data$CallHour <- as.numeric(sub(":.+", "", data$TimeStart))
+
+unique(data$city)
 
 #use 80% of dataset as training set and 20% as test set
 sample <- sample(c(TRUE, FALSE), nrow(data), replace=TRUE, prob=c(0.8,0.2))
