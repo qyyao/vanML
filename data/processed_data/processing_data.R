@@ -1,5 +1,5 @@
 # file to process data for the models
-data <- readRDS('merged.RDS')
+data <- readRDS('merged_cases.RDS')
 
 set.seed(1)
 
