@@ -53,6 +53,16 @@ data <- data %>% mutate(Broadreason =
                                     .default = NULL)
 )
 
+data <- data %>% mutate(gender =
+                          case_when(CallerDemographicsGender == "Male" ~ "Male", 
+                                    CallerDemographicsGender == "Female" ~ "Female", 
+                                    CallerDemographicsGender == "Trans Female" ~ "Transgender", 
+                                    CallerDemographicsGender == "Trans Male" ~ "Transgender", 
+                                    CallerDemographicsGender == "Transgender" ~ "Transgender", 
+                                    .default = "other")
+)
+
+
 #use 80% of dataset as training set and 20% as test set
 sample <- sample(c(TRUE, FALSE), nrow(data), replace=TRUE, prob=c(0.8,0.2))
 train  <- data[sample, ]
