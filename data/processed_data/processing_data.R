@@ -1,4 +1,5 @@
 library(tidyverse)
+library(dplyr)
 
 # file to process data for the models
 data <- readRDS('merged_cases.RDS')
@@ -38,7 +39,7 @@ others <- c("Ado", "Video Gaming", "Not Obtained", "Human Rights", "Other", "Art
 
 mental_health <- c("Gambling", "Social Isolation", "Suicide", "Grief/Loss", "Conflict with Others", "Mental Health", "Substance Use")
 
-help <- c("Ukraine - displaced individual needing help", "Disaster", "Accident", "Missing Person", "Education/Training", "Employment", "Citizenship Immigration & Settlement", "Transportations", "Government Services", "Basic Needs", "Legal and Public Safety", "Income & Financial Assistance", "Health", "Housing and Homelessness")
+help <- c("Ukraine - displaced individual needing help", "Disaster", "Accident", "Missing Person", "Education/Training", "Employment", "Citizenship Immigration & Settlement", "Transportations", "Transportation", "Government Services", "Basic Needs", "Legal and Public Safety", "Income & Financial Assistance", "Health", "Housing and Homelessness")
 
 crime <- c("Human Trafficking", "Offender Information", "Sex Trade", "Harrassment", "Bullying", "Criminal Harrassment", "Assault", "Other Crimes",  "Abuse") 
 
@@ -61,6 +62,9 @@ data <- data %>% mutate(gender =
                                     CallerDemographicsGender == "Transgender" ~ "Transgender", 
                                     .default = "other")
 )
+
+
+data <- dplyr::select(data, c('DateStart','TimeStart', "CallLength", "CityName", "CallType", "DateYear", "DateMonth", "New cases", "CallHour", "age_numeric", "Broadreason", "gender"))
 
 
 #use 80% of dataset as training set and 20% as test set
